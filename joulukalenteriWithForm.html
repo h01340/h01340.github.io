@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Joulukalenteri</title>
+    <style>
+      body {
+        background-image: url("images/taustakuva.JPG");
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        margin-top: 30px;
+        font-size: 36px;
+      }
+
+      .calendar-form {
+        margin-top: 50px;
+      }
+
+      select {
+        padding: 10px;
+        font-size: 20px;
+        border-radius: 5px;
+        border: 2px solid goldenrod;
+        background-color: ghostwhite;
+      }
+
+      input[type="submit"] {
+        padding: 10px 20px;
+        font-size: 20px;
+        background-color: goldenrod;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+
+      input[type="submit"]:hover {
+        background-color: lightgoldenrodyellow;
+      }
+
+      #result {
+        margin-top: 30px;
+        font-size: 20px;
+      }
+
+      #dailyPic {
+        margin-top: 20px;
+      }
+
+      footer {
+        margin-top: 50px;
+        font-size: 14px;
+        text-align: center;
+      }
+
+      /* Responsiivisuus */
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 28px;
+        }
+
+        select,
+        input[type="submit"] {
+          font-size: 18px;
+          padding: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Joulukalenteri</h1>
+    <p>Valitse päivä ja avaa luukku!</p>
+
+    <div class="calendar-form">
+      <label for="daySelect">Minkä päivän luukun haluat avata:</label>
+      <input type="text" id="daynumber" value="" />
+      <br />
+      <input type="submit" value="Avaa luukku" onclick="avaaLuukku()" />
+    </div>
+
+    <div id="result"></div>
+    <div id="dailyPic"></div>
+
+    <footer>
+      <p>&copy; 2025 Joulukalenteri</p>
+    </footer>
+
+    <script>
+      function avaaLuukku() {
+        // Lomakkeen käsittelijä
+        let day = document.getElementById("daynumber").value;
+        //event.preventDefault(); // Estetään lomakkeen oletustoiminto
+        day = day.trim();
+        if (day.length < 1) {
+          day = 0;
+        } else if (isNaN(day)) {
+          day = 0;
+        } else if (day < 0 || day > 24) {
+          day = 0;
+        }
+
+        showMessage(day);
+      }
+
+      function showMessage(day) {
+        console.log("showMessage, day: " + day);
+        const messages = [
+          "Tarkista syötitkö päivän numeromuodossa välillä 1-24!",
+          "Tervetuloa joulukalenteriin!",
+          "Tänään on ensimmäinen joulupäivä!",
+          "Jatka matkaa joulun taikaan!",
+          "Kolmas päivä, neljäs luukku avattu!",
+          "Lahjojen odotus jatkuu.",
+          "Joulu on jo lähellä!",
+          "Ihanaa joulun aikaa!",
+          "Joulukalenteri tuo iloa.",
+          "Tänä vuonna lahjat ovat erityisiä.",
+          "Marraskuun lopun odotusta!",
+          "Joulupukkikin on valmistautumassa.",
+          "Kaksitoista päivää jäljellä jouluaattoon!",
+          "Tänä vuonna joulu on erityinen.",
+          "Tässä joulussa on taikaa.",
+          "Vielä muutama päivä ennen joulua!",
+          "Joulu lähestyy, nauti hetkistä!",
+          "Joulutunnelma on jo ilmassa!",
+          "Vielä kaksi päivää!",
+          "Tämä on joulun taikaa!",
+          -"Lähes valmis joulua varten.",
+          "Päivä on melkein täällä!",
+          "Tänään on se suuri päivä!",
+          "Jouluaatto on täällä!",
+          "Rauhallista joulua, iloa ja onnea!",
+          "Hyvää joulua!",
+        ];
+
+        let today = new Date();
+        let dayNbr = today.getDate();
+        let dayNames = ["Maanantai", "Tiistai", "Keskiviikko", "Torstai", "Perjantai", "Lauantai", "Sunnuntai"];
+
+        if (day == dayNbr || day < dayNbr) {
+          console.log("Sama päivä tai vanhempi päivä, voi avata luukun");
+          document.getElementById("result").innerHTML = messages[day];
+        } else {
+          console.log("Tulevaisuuden luukku, ei avata luukkua");
+          document.getElementById("result").innerHTML = "Alä ole liian innokas luukun avaaja";
+        }
+        //const imagePath = `images/day${day}.jpg`; // Kuvan polku
+
+        // Näytetään päiväkohtainen viesti ja kuva
+        // document.getElementById("result").innerHTML = messages[day];
+        //document.getElementById("dailyPic").innerHTML = `<img src="${imagePath}" alt="Joulukuva ${day}" width="300">`;
+      }
+    </script>
+  </body>
+</html>
